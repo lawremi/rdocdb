@@ -15,9 +15,9 @@
   document collections in R. The API extends the base R API for
   data.frames and lists so that one can treat list data as
   hierarchical or tabular, without coercion. Many of the extensions
-  have semantics specific to document collections. The package
+  have semantics specific to document collections. The package also
   implements the extensions on top of data.frame, so that one can
-  choose the most efficient representation with minimal adaptation.
+  choose the most efficient implementation with minimal adaptation.
  
 * Usage
   TODO
