@@ -1,0 +1,21 @@
+Package: rdocdb
+Type: Package
+Title: Document collections in R
+Version: 0.0.1
+Author: Michael Lawrence, Gabriel Becker
+Maintainer: Michael Lawrence <michafla@gene.com>
+Description: A simple, flexible abstraction for representing
+	     collection-of-documents data (a la JSON, Mongo or Solr) in R. 
+License: Apache License (== 2.0)
+Depends:
+    R (>= 3.2.0),
+    methods
+Imports:
+    S4Vectors
+Collate:
+	allClasses.R
+	accessors.R
+	api-methods.R
+	convertFields.R
+	show-methods.R
+	utils.R

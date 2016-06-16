@@ -1,0 +1,12 @@
+import(methods)
+import(S4Vectors)
+importFrom(stats, setNames)
+exportClasses(DocCollection, DocList, DocDataFrame, DocCollectionRef)
+
+S3method(as.data.frame, DocCollection)
+
+export(docs, simplify2array2)
+exportMethods( meta, "meta<-", ids, "ids<-", fieldNames, "fieldNames<-", ndoc,
+              nfield, as.data.frame, "[", docs, "docs<-")
+S3method(c, DocCollection)
+S3method(as.data.frame, DocCollection)

@@ -1,0 +1,24 @@
+* Introduction
+  When analyzing data, it is usually most convenient to model the data
+  as a table, e.g., a =data.frame=. However, a table is a very rigid
+  structure, and many modern formats (XML, JSON, YAML, etc) and
+  databases (MongoDb, Solr, etc) follow the more flexible recursive
+  list model, which can represent ragged, less structured data.
+
+  When analyzing a hierarchical dataset, we retain the desire to query
+  it as if it were a table. We could project the list onto a table,
+  but that may be inefficient if the data are sparse. Thus, we need a
+  sparse table representation, i.e., something that resembles a
+  data.frame on the outside but is actually a list.
+
+  The =rdocdb= package defines an abstraction for working with
+  document collections in R. The API extends the base R API for
+  data.frames and lists so that one can treat list data as
+  hierarchical or tabular, without coercion. Many of the extensions
+  have semantics specific to document collections. The package
+  implements the extensions on top of data.frame, so that one can
+  choose the most efficient representation with minimal adaptation.
+ 
+* Usage
+  TODO
+  
