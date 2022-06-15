@@ -91,39 +91,35 @@ c.DocCollection <- function(...) {
 ### Bracket implementations
 ###
 
-uncommonFields <- function(x, j) {
-  fieldtab <- table(unlist(lapply(x, names), use.names=FALSE))
-  common <- names(fieldtab)[fieldtab == length(x)]
-  setdiff(j, common)
-}
-
 setMethod("[", "DocList", function(x, i, j, ..., drop = TRUE) {
   if (!isTRUEorFALSE(drop)) {
     stop("'drop' should be TRUE or FALSE")
   }
+  s3x <- S3Part(x, TRUE)
   if (!missing(i)) {
-### FIXME: have to call S3Part() here due to bug in
-### callNextMethod(). It should probably use the C-level
-### callNextMethod, but when we specify arguments, it calls
-### .nextMethod(), which does not work when .nextMethod is a
-### primitive (infinite recursion).
-    ans <- callNextMethod(S3Part(x, TRUE), i)
+    ans <- callNextMethod(s3x, i)
   } else {
-    ans <- x
+    ans <- s3x
   }
-  dropped <- FALSE
+  dropped <- !missing(drop) && drop
   if (!missing(j)) {
     if (!is.character(j)) {
       stop("'j' must be character")
     }
     if (drop && length(j) == 1L) {
-      ans <- simplify2array2(lapply(unname(ans), `[[`, j))
+      ans <- simplify2array2(lapply(unname(ans), `[[`, j[[1L]]))
       dropped <- TRUE
     } else {
-      ans <- lapply(ans, function(d) {
-                      d <- d[j]
-                      d[!is.na(names(d))]
-                    })
+        if (is.list(j)) {
+            ans <- lapply(ans, function(d) {
+                Filter(Negate(is.null), setNames(lapply(j, `[[`, X=d), j))
+            })
+        } else {
+            ans <- lapply(ans, function(d) {
+                d <- d[j]
+                d[!is.na(names(d))]
+            })
+        }
     }
   }
   if (dropped) {
@@ -172,7 +168,7 @@ setReplaceMethod("[", "DocList", function(x, i, j, ..., value) {
 setMethod("[", "DocCollectionRef", function(x, i, j, ..., drop = TRUE) {
     x <- docs(x)
     callGeneric()
-    })
+})
 
 setReplaceMethod("[", "DocCollectionRef", function(x, i, j, ..., value) {
     full <- x
@@ -180,4 +176,4 @@ setReplaceMethod("[", "DocCollectionRef", function(x, i, j, ..., value) {
     res <-  callGeneric()
     full$docs = res
     full
-    })
+})

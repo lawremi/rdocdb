@@ -16,6 +16,7 @@ Collate:
 	allClasses.R
 	accessors.R
 	api-methods.R
+	constructors.R
 	convertFields.R
 	show-methods.R
 	utils.R

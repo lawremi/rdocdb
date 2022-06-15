@@ -25,7 +25,7 @@ setMethod("show", "DocList", function(object) {
 
 setMethod("show", "DocDataFrame", function(object) {
   callNextMethod()
-  out <- S4Vectors:::makePrettyMatrixForCompactPrinting(object)
+  out <- S4Vectors:::makePrettyMatrixForCompactPrinting(object, as.matrix)
   print(out, quote=FALSE, right=TRUE, max=length(out))
 })
 
@@ -33,4 +33,4 @@ setMethod("show", "DocCollectionRef",
           function(object) {
     cat("A reference to a DocCollection\n")
     show(docs(object))
-    })
+})

@@ -25,7 +25,7 @@
 setClass("DocCollection")
 setClass("DocList", contains = c("list", "DocCollection"),
          validity = function(object) {
-           if (any(vapply(lapply(object, names), is.null, logical(1)) &
+           if (any(vapply(lapply(object@.Data, names), is.null, logical(1)) &
                    !vapply(object, is.null, logical(1))))
              "all non-NULL elements must have names"
          })
